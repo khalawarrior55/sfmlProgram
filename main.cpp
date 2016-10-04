@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cstdio>
 
+// This is the top of the program
+
 using namespace std;
 
 #define WINDOW_X 800
