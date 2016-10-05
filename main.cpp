@@ -18,55 +18,84 @@ class ricky{
 	float movementSpeed;
 	sf::Sprite sprite;
 	sf::Vector2f pos;
-	int spriteCounter = 0;
-	// static sf::Texture textureRicky;
+	int spriteCounter;
+	int delayCounter;
 
 public:
-	ricky(sf::Texture & texture, int hitPoints = 100, float movementSpeed = .05){
+	ricky(sf::Texture & texture, int hitPoints = 100, float movementSpeed = .005){
 		sprite.setTexture(texture);
 		sprite.setPosition(0, 0);
 		this->hitPoints = hitPoints;
 		this->movementSpeed = movementSpeed;
 		pos = sprite.getPosition();
-		sprite.setOrigin(80,80);
+		spriteCounter = 0;
+		delayCounter = 1000;
+		sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
 
 	}
 	void control(){
+		// Gets the position of the sprite
 		getPos();
+		// Moves sprite down
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && pos.y < WINDOW_Y){
 			sprite.move(0, movementSpeed);
 			animateDown();
 			}
 
+		// Moves sprite up
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && pos.y >= 0){
 			sprite.move(0, -movementSpeed);
+			animateUp();
 			}	
 
+		// Moves sprite left
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && pos.x >= 0){
 			sprite.move(-movementSpeed, 0);
+			animateLeft();
 			}
 
+		// Moves sprite right
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && pos.x < WINDOW_X){
 			sprite.move(movementSpeed, 0);
+			animateRight();
 			}
 
+		// Returns sprite to (0, 0)
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 			sprite.setPosition(0,0);
 			}
 
-		sprite.setRotation(sprite.getRotation() + .001);
 	}
 	void draw(sf::RenderWindow & window){
 
 		window.draw(sprite);		
 	}
-
+	void counterReset(){
+		if (spriteCounter/delayCounter >= 12)
+			spriteCounter = 0;
+	}
 	void getPos(){
 		pos = sprite.getPosition();
 	}
 	void animateDown(){
-		sprite.setTextureRect(sf::IntRect(spriteCounter * 33, 0, 32 * (spriteCounter + 1), 32));
+		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 0, 32, 32));
 		++spriteCounter;
+		counterReset();
+	}
+	void animateUp(){
+		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 96, 32, 32));
+		++spriteCounter;
+		counterReset();
+	}
+	void animateRight(){
+		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 64, 32, 32));
+		++spriteCounter;
+		counterReset();
+	}
+	void animateLeft(){
+		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 32, 32, 32));
+		++spriteCounter;
+		counterReset();
 	}
 
 
@@ -84,9 +113,9 @@ int main()
 {
     // Create the main window
     static sf::RenderWindow window(sf::VideoMode(WINDOW_X, WINDOW_Y), "Riqukey RINEHOLDS tha vidiagame");
-    // Load a sprite to display
+    // Load a texture for sprites
     sf::Texture texture;
-    if (!texture.loadFromFile("cute_image.jpeg"))
+    if (!texture.loadFromFile("sprite.png"))
         return EXIT_FAILURE;
     // Create a graphical text to display
     sf::Font font;
