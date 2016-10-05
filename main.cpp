@@ -102,8 +102,11 @@ public:
 };
 
 // Draws all entities loaded
-void drawLoop(sf::RenderWindow & window, vector<ricky> & vec){
+void drawLoop(sf::RenderWindow & window, vector<ricky> & vec, vector<sf::Sprite> & sprites){
 	int counter = 0;
+	for(int i = 0; i < sprites.size(); ++i){
+		window.draw(sprites[counter]);
+	}
 	for(int i = 0; i < vec.size(); ++i){
 		vec[counter].draw(window);
 	}
@@ -117,6 +120,9 @@ int main()
     sf::Texture texture;
     if (!texture.loadFromFile("sprite.png"))
         return EXIT_FAILURE;
+	sf::Texture grass;
+	if (!grass.loadFromFile("truck.jpg"))
+		return EXIT_FAILURE;
     // Create a graphical text to display
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
@@ -134,6 +140,12 @@ int main()
 	ricky player(texture);
 	entities.push_back(player);
 	ricky * playerP = &entities[0];	
+	// Spawns background grass
+	sf::Sprite background;
+	background.setTexture(grass);
+	background.setPosition(0, 0);
+	vector<sf::Sprite> sprites;
+	sprites.push_back(background);
     // Start the game loop
     while (window.isOpen())
     {
@@ -155,7 +167,7 @@ int main()
 		// Scans inputs
 		playerP->control();
 		// Draws Entities
-		drawLoop(window, entities);
+		drawLoop(window, entities, sprites);
         // Draw the string
         window.draw(text);
         // Update the window
