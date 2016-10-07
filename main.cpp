@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
-#include <cstdio>
+#include "sprites.h"
 
 // This is the top of the program
 // Random Comment
@@ -12,7 +12,7 @@ using namespace std;
 #define WINDOW_X 800
 #define WINDOW_Y 600
 
-
+/*
 class ricky{
 	int hitPoints;
 	float movementSpeed;
@@ -100,9 +100,9 @@ public:
 
 
 };
-
+*/
 // Draws all entities loaded
-void drawLoop(sf::RenderWindow & window, vector<ricky> & vec, vector<sf::Sprite> & sprites){
+void drawLoop(sf::RenderWindow & window, vector<Player> & vec, vector<sf::Sprite> & sprites){
 	int counter = 0;
 	for(int i = 0; i < sprites.size(); ++i){
 		window.draw(sprites[counter]);
@@ -135,11 +135,11 @@ int main()
     // Play the music
     music.play();
 	// Entity Holder
-	vector<ricky> entities;
+	vector<Player> entities;
 	// Instantiates player
-	ricky player(texture);
+	Player player(texture);
 	entities.push_back(player);
-	ricky * playerP = &entities[0];	
+	Player * playerP = &entities[0];	
 	// Spawns background grass
 	sf::Sprite background;
 	background.setTexture(grass);

@@ -1,6 +1,8 @@
-test: main.o
-	g++ main.o -o test -lsfml-graphics -lsfml-window -lsfml-system -lsfml-system -lsfml-audio
+test: main.o sprites.o
+	g++ main.o sprites.o -o test -lsfml-graphics -lsfml-window -lsfml-system -lsfml-system -lsfml-audio
 main.o: main.cpp
 	g++ -c main.cpp
+sprites.o: sprites.cpp
+	g++ -c sprites.cpp
 clean:
 	 rm *.o test
