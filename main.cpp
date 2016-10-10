@@ -137,7 +137,7 @@ int main()
 	// Entity Holder
 	vector<Player> entities;
 	// Instantiates player
-	Player player(texture);
+	Player player(texture, 32.0, 32.0);
 	entities.push_back(player);
 	Player * playerP = &entities[0];	
 	// Spawns background grass

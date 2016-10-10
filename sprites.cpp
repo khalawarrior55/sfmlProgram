@@ -1,19 +1,25 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "sprites.h"
 
 #define WINDOW_X 800
 #define WINDOW_Y 600
 
-Entity::Entity(sf::Texture & texture){
+using namespace std;
+
+Entity::Entity(sf::Texture & texture, float xDimension, float yDimension){
 	sprite.setTexture(texture);
+    spriteWidth = xDimension;
+    spriteHeight = yDimension;
+    sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 	sprite.setPosition(0, 0);
 	animationDelay = 1000;
 	spriteCounter = 0;
-}
+};
 void Entity::draw(sf::RenderWindow & window){
 	window.draw(sprite);
 }
-void Entity::setDimentions(const int & x, const int & y){
+void Entity::setDimentions(const float & x, const float & y){
 	this->spriteWidth = x;
 	this->spriteHeight = y;
 }
@@ -24,14 +30,16 @@ void Entity::setPos(const float & x, const float & y){
 	sprite.setPosition(x, y);
 }
 void Entity::counterReset(){
-	spriteCounter = 0;
+    if (spriteCounter/animationDelay >= 12)
+	    spriteCounter = 0;
 }
 void Entity::animate(int direction){
-	sprite.setTextureRect(sf::IntRect(spriteCounter/animationDelay * spriteWidth, spriteHeight * direction, spriteWidth, spriteHeight));
+	sprite.setTextureRect(sf::IntRect(spriteCounter / animationDelay * spriteWidth, spriteHeight * direction, spriteWidth, spriteHeight));
 	++spriteCounter;
 	counterReset();
 }
-Player::Player(sf::Texture & texture, int hitPoints, float movementSpeed) : Entity(texture) {
+Player::Player(sf::Texture & texture, float xDimension, float yDimension, int hitPoints, float movementSpeed)
+    : Entity(texture, xDimension, yDimension) {
 	this->hitPoints = hitPoints;
 	this->movementSpeed = movementSpeed;
 }
@@ -53,4 +61,5 @@ void Player::control(){
 		sprite.move(0, -movementSpeed);
 		animate(3);
 	}
+    cout << movementSpeed << endl;
 }

@@ -11,9 +11,9 @@ protected:
 	int spriteCounter;
 	int animationDelay;
 public:
-	Entity(sf::Texture & texture);
+	Entity(sf::Texture & texture, float xDimension, float yDimension);
 	void draw(sf::RenderWindow & window);
-	void setDimentions(const int & x, const int & y);
+	void setDimentions(const float & x, const float & y);
 	void getPos();
 	void setPos(const float & x, const float & y);
 	void counterReset();
@@ -26,7 +26,7 @@ protected:
 	int hitPoints;
 	float movementSpeed;
 public:
-	Player(sf::Texture & texture, int hitPoints = 100, float movementSpeed = .001);
+	Player(sf::Texture & texture, float xDimension, float yDimension, int hitPoints = 100, float movementSpeed = .01);
 	void control();
 
 };
