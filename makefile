@@ -5,4 +5,4 @@ main.o: main.cpp
 sprites.o: sprites.cpp
 	g++ -c sprites.cpp
 clean:
-	 rm *.o test
+	 rm *.o *.exe
