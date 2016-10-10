@@ -12,95 +12,7 @@ using namespace std;
 #define WINDOW_X 800
 #define WINDOW_Y 600
 
-/*
-class ricky{
-	int hitPoints;
-	float movementSpeed;
-	sf::Sprite sprite;
-	sf::Vector2f pos;
-	int spriteCounter;
-	int delayCounter;
 
-public:
-	ricky(sf::Texture & texture, int hitPoints = 100, float movementSpeed = .005){
-		sprite.setTexture(texture);
-		sprite.setPosition(0, 0);
-		this->hitPoints = hitPoints;
-		this->movementSpeed = movementSpeed;
-		pos = sprite.getPosition();
-		spriteCounter = 0;
-		delayCounter = 1000;
-		sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
-
-	}
-	void control(){
-		// Gets the position of the sprite
-		getPos();
-		// Moves sprite down
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && pos.y < WINDOW_Y){
-			sprite.move(0, movementSpeed);
-			animateDown();
-			}
-
-		// Moves sprite up
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && pos.y >= 0){
-			sprite.move(0, -movementSpeed);
-			animateUp();
-			}	
-
-		// Moves sprite left
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && pos.x >= 0){
-			sprite.move(-movementSpeed, 0);
-			animateLeft();
-			}
-
-		// Moves sprite right
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && pos.x < WINDOW_X){
-			sprite.move(movementSpeed, 0);
-			animateRight();
-			}
-
-		// Returns sprite to (0, 0)
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			sprite.setPosition(0,0);
-			}
-
-	}
-	void draw(sf::RenderWindow & window){
-
-		window.draw(sprite);		
-	}
-	void counterReset(){
-		if (spriteCounter/delayCounter >= 12)
-			spriteCounter = 0;
-	}
-	void getPos(){
-		pos = sprite.getPosition();
-	}
-	void animateDown(){
-		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 0, 32, 32));
-		++spriteCounter;
-		counterReset();
-	}
-	void animateUp(){
-		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 96, 32, 32));
-		++spriteCounter;
-		counterReset();
-	}
-	void animateRight(){
-		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 64, 32, 32));
-		++spriteCounter;
-		counterReset();
-	}
-	void animateLeft(){
-		sprite.setTextureRect(sf::IntRect(spriteCounter/delayCounter * 32, 32, 32, 32));
-		++spriteCounter;
-		counterReset();
-	}
-
-
-};
-*/
 // Draws all entities loaded
 void drawLoop(sf::RenderWindow & window, vector<Player> & vec, vector<sf::Sprite> & sprites){
 	int counter = 0;
@@ -137,7 +49,7 @@ int main()
 	// Entity Holder
 	vector<Player> entities;
 	// Instantiates player
-	Player player(texture, 32.0, 32.0);
+	Player player(texture, 12, 32.0, 32.0);
 	entities.push_back(player);
 	Player * playerP = &entities[0];	
 	// Spawns background grass
